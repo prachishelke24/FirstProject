@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SKY AGRO Admin Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            font-family: 'Poppins', sans-serif;
+        }
+        body {
+            background: linear-gradient(135deg, #f6f8fc 20%, #e2e8f0);
+        }
+        .clay-card {
+            background: #ffffff;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease-in-out;
+        }
+        .clay-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+        .clay-button {
+            background: #4dc7d9; /* Light Blue */
+            color: white;
+            border-radius: 20px;
+            padding: 10px 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+        .clay-button:hover {
+            background: #34a5b6; /* Darker Light Blue */
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+        .clay-button:active {
+            box-shadow: inset 2px 2px 5px #d1d9e6, inset -2px -2px 5px #ffffff;
+        }
+        .clay-input {
+            background: #e8ecf4;
+            border-radius: 10px;
+            padding: 10px;
+            width: 100%;
+            box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        .active-tab {
+            background: #34a5b6; /* Darker Light Blue */
+            color: white;
+            box-shadow: inset 4px 4px 8px #d1d9e6, inset -4px -4px 8px #ffffff;
+        }
+        .sidebar-header {
+            font-size: 1.75rem;
+            font-weight: bold;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            color: #ffffff;
+            background: linear-gradient(45deg, #4dc7d9, #34a5b6); /* Light Blue Gradient */
+            padding: 20px;
+            border-radius: 15px;
+        }
+        .sidebar-header:hover {
+            background: linear-gradient(45deg, #34a5b6, #2b8f9a); /* Darker Light Blue Gradient */
+        }
+        .history-section {
+            margin-bottom: 20px;
+        }
+        .history-header {
+            font-weight: bold;
+            cursor: pointer;
+            color: #4dc7d9; /* Light Blue */
+            transition: color 0.2s ease;
+        }
+        .history-header:hover {
+            color: #34a5b6; /* Darker Light Blue */
+        }
+        .history-details {
+            margin-top: 10px;
+            padding-left: 20px;
+            display: none;
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 15px;
+        }
+    </style>
+</head>
+<body class="min-h-screen">
+    <div class="flex flex-col md:flex-row">
+        <!-- Sidebar -->
+        <div class="clay-card m-4 w-full md:w-64 h-auto md:h-screen">
+            <div class="sidebar-header">SKY AGRO DEALER</div>
+            <nav class="space-y-2">
+                <button onclick="switchTab('dashboard', event)" class="clay-button text-left mb-2 active-tab">
+                    <i class="bi bi-house-door mr-2"></i> Dashboard
+                </button>
+                <button onclick="switchTab('orders', event)" class="clay-button text-left mb-2">
+                    <i class="bi bi-cart mr-2"></i> Order Management
+                </button>
+                <button onclick="switchTab('reports', event)" class="clay-button text-left mb-2">
+                    <i class="bi bi-file-text mr-2"></i> Reports
+                </button>
+                <button onclick="switchTab('dealerHistory', event)" class="clay-button text-left mb-2">
+                    <i class="bi bi-clock-history mr-2"></i> Dealer History
+                </button>
+                <button onclick="switchTab('settings', event)" class="clay-button text-left mb-2">
+                    <i class="bi bi-gear mr-2"></i> Settings
+                </button>
+            </nav>
+        </div>
+
+        <!-- Main Content -->
+        <div class="flex-1 p-4">
+            <!-- Dashboard -->
+            <div id="dashboard" class="tab-content">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+                    <div class="clay-card">
+                        <h3 class="text-lg font-semibold mb-2">Pending Approvals</h3>
+                        <p class="text-3xl font-bold text-gray-800">12</p>
+                    </div>
+                    <div class="clay-card">
+                        <h3 class="text-lg font-semibold mb-2">Active Orders</h3>
+                        <p class="text-3xl font-bold text-gray-800">45</p>
+                    </div>
+                    <div class="clay-card">
+                        <h3 class="text-lg font-semibold mb-2">Total Dealers</h3>
+                        <p class="text-3xl font-bold text-gray-800">89</p>
+                    </div>
+                </div>
+
+                <div class="clay-card">
+                    <h3 class="text-lg font-semibold mb-4">Recent Activity</h3>
+                    <div class="space-y-4">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="font-semibold">New Dealer Registration</p>
+                                <p class="text-sm text-gray-600">Dealer ID: D123</p>
+                            </div>
+                            <button class="clay-button">Review</button>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="font-semibold">Price Adjustment Request</p>
+                                <p class="text-sm text-gray-600">Product: Fertilizer A</p>
+                            </div>
+                            <button class="clay-button">Review</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Dealer History -->
+            <div id="dealerHistory" class="tab-content hidden">
+                <div class="clay-card">
+                    <h3 class="text-lg font-semibold mb-4">Dealer History</h3>
+                    <div class="space-y-4" id="dealer-history-container">
+                        <!-- Dynamic dealer history entries will be loaded here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function switchTab(tabName, event) {
+            document.querySelectorAll('.clay-button').forEach(btn => {
+                btn.classList.remove('active-tab');
+            });
+
+            event.target.classList.add('active-tab');
+
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.style.display = 'none';
+            });
+
+            document.getElementById(tabName).style.display = 'block';
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('dashboard').style.display = 'block';
+            loadDealerHistory();
+        });
+
+        // Example data for dealer history with multiple dealers
+        const dealerHistory = [
+            {
+                id: 'D123',
+                action: 'New Dealer Registration',
+                date: '2025-01-05',
+                description: 'Dealer D123 registered successfully.',
+                orders: [
+                    { orderId: 'O001', product: 'Fertilizer A', amount: 100, date: '2025-01-06' },
+                    { orderId: 'O002', product: 'Seeds B', amount: 50, date: '2025-01-07' }
+                ],
+                payments: [
+                    { paymentId: 'P001', amount: 150, date: '2025-01-07' }
+                ]
+            },
+            {
+                id: 'D124',
+                action: 'Price Adjustment Request',
+                date: '2025-01-06',
+                description: 'Dealer D124 requested a price adjustment for Fertilizer C.',
+                orders: [
+                    { orderId: 'O003', product: 'Fertilizer C', amount: 200, date: '2025-01-08' }
+                ],
+                payments: [
+                    { paymentId: 'P002', amount: 200, date: '2025-01-08' }
+                ]
+            },
+            {
+                id: 'D125',
+                action: 'Order Cancellation',
+                date: '2025-01-07',
+                description: 'Dealer D125 canceled an order for Seeds B.',
+                orders: [
+                    { orderId: 'O004', product: 'Seeds B', amount: 50, date: '2025-01-07' }
+                ],
+                payments: [
+                    { paymentId: 'P003', amount: 50, date: '2025-01-07' }
+                ]
+            }
+            // Add more dealers as needed
+        ];
+
+        // Load the dealer history section dynamically
+        function loadDealerHistory() {
+            const container = document.getElementById('dealer-history-container');
+            container.innerHTML = '';
+            dealerHistory.forEach(dealer => {
+                const dealerEntry = document.createElement('div');
+                dealerEntry.classList.add('history-section');
+                dealerEntry.innerHTML = `
+                    <div class="history-header" onclick="toggleHistoryDetails('${dealer.id}')">
+                        Dealer ID: ${dealer.id} | Action: ${dealer.action} | Date: ${dealer.date}
+                    </div>
+                    <div class="history-details" id="history-details-${dealer.id}">
+                        <p>${dealer.description}</p>
+                        <div class="font-semibold text-gray-800">Past Orders</div>
+                        <ul>
+                            ${dealer.orders.map(order => `
+                                <li>Order ID: ${order.orderId} | Product: ${order.product} | Amount: ₹${order.amount} | Date: ${order.date}</li>
+                            `).join('')}
+                        </ul>
+                        <div class="font-semibold text-gray-800 mt-4">Payments</div>
+                        <ul>
+                            ${dealer.payments.map(payment => `
+                                <li>Payment ID: ${payment.paymentId} | Amount: ₹${payment.amount} | Date: ${payment.date}</li>
+                            `).join('')}
+                        </ul>
+                    </div>
+                `;
+                container.appendChild(dealerEntry);
+            });
+        }
+
+        // Toggle the visibility of dealer order and payment details
+        function toggleHistoryDetails(dealerId) {
+            const details = document.getElementById(`history-details-${dealerId}`);
+            details.style.display = details.style.display === 'block' ? 'none' : 'block';
+        }
+    </script>
+</body>
+</html>
